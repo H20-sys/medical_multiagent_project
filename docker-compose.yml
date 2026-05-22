@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  medical-backend:
+    build: .
+    ports:
+      - "8000:8000"  # FastAPI
+      - "8001:8001"  # MCP Server
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MODEL_NAME=gpt-3.5-turbo
+    volumes:
+      - ./backend:/app/backend
+    restart: unless-stopped
+
+  medical-frontend:
+    build: .
+    ports:
+      - "8501:8501"  # Streamlit
+    depends_on:
+      - medical-backend
+    environment:
+      - API_BASE_URL=http://medical-backend:8000
+    restart: unless-stopped

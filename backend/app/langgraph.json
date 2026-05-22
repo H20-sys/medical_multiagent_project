@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "graphs": {
+    "medical_graph": "./app/graph.py:get_medical_graph"
+  },
+  "env": "./.env",
+  "dependencies": ["."]
+}
